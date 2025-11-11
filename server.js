@@ -1,10 +1,7 @@
-
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
-import fs from "fs";
-import https from "https";
 import userRoutes from "./routes/userRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import certificateRoutes from "./routes/certificateRoutes.js";
@@ -12,31 +9,39 @@ import certificateRoutes from "./routes/certificateRoutes.js";
 dotenv.config();
 const app = express();
 
-// Middleware
-app.use(express.json());
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-
+// ✅ CORS configuration (keep only ONE)
 app.use(cors({
-  origin: 'https://smcen.netlify.app',
-  credentials: true
+  origin: "https://smcen.netlify.app",   // your frontend domain
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 }));
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello from backend!' });
+// ✅ Handle preflight (OPTIONS) requests
+app.options("*", cors());
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// ✅ Simple test route
+app.get("/", (req, res) => {
+  res.json({ message: "Hello from backend!" });
 });
 
-// Routes
+// ✅ Routes
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/admin", certificateRoutes);
 app.use("/api/sem2", userRoutes);
 
-// Connect to MongoDB Atlas
+// ✅ MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch(err => console.error("❌ MongoDB Connection Error:", err));
 
-app.listen(3000, () => {
-  console.log("🚀 Server running at http://localhost:3000");
+// ✅ Server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
