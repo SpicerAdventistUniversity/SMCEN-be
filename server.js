@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-  origin: 'https://enrichment.spicercollege.in',
+  origin: 'https://smcen.netlify.app',
   credentials: true
 }));
 
