@@ -72,7 +72,7 @@ router.get("/transcript", async (req, res) => {
         { code: "RELB291", title: "Apocalyptic Literature", semester: "I" },
         { code: "RELB125", title: "Life and Teachings of Jesus", semester: "I" },
         { code: "RELB238", title: "Adventist Heritage", semester: "I" },
-        { code: "EDUC131", title: "Philosophy of Education", semester: "I" },
+        { code: "EDUC231", title: "Philosophy of Education", semester: "I" },
         { code: "RELB152", title: "Christian Beliefs II", semester: "II" },
         { code: "FNCE451", title: "Church Stewardship & Finance", semester: "II" },
         { code: "RELB292", title: "Apocalyptic Literature", semester: "II" },

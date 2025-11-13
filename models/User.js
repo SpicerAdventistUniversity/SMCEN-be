@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
     RELB291: { type: courseSchema, default: { creditHours: 2 } },
     RELB125: { type: courseSchema, default: { creditHours: 3 } },
     RELB238: { type: courseSchema, default: { creditHours: 3 } },
-    EDUC131: { type: courseSchema, default: { creditHours: 2 } },
+    EDUC231: { type: courseSchema, default: { creditHours: 2 } },
     WREL234: { type: courseSchema, default: { creditHours: 3 } },
     HLED121: { type: courseSchema, default: { creditHours: 2 } },
     RELB152: { type: courseSchema, default: { creditHours: 2 } },
