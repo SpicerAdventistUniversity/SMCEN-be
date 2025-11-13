@@ -9,18 +9,23 @@ import certificateRoutes from "./routes/certificateRoutes.js";
 dotenv.config();
 const app = express();
 
-// ✅ CORS configuration (keep only ONE)
-app.use(cors({
-  origin: "https://smcen.netlify.app",   // your frontend domain
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-}));
+// ✅ CORS configuration
+app.use(
+  cors({
+    origin: [
+      "https://smcen.netlify.app", // ✅ production frontend
+      "http://localhost:5173",     // ✅ local frontend (for development)
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 
-// ✅ Handle preflight (OPTIONS) requests
+// ✅ Always handle preflight requests before routes
 app.options("*", cors());
 
-// Middleware
+// ✅ Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -36,11 +41,12 @@ app.use("/api/admin", certificateRoutes);
 app.use("/api/sem2", userRoutes);
 
 // ✅ MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
-  .catch(err => console.error("❌ MongoDB Connection Error:", err));
+  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-// ✅ Server
+// ✅ Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
