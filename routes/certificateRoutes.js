@@ -110,7 +110,6 @@ import User from "../models/User.js";
 import archiver from "archiver";
 import PDFDocument from "pdfkit";
 import stream from "stream";
-import User from "../models/userModel.js"; // adjust path if needed
 
 // ---------- Common Data ----------
 const courses = [
